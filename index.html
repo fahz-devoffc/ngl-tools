@@ -3,67 +3,185 @@
 <head>
 <meta charset="UTF-8">
 <title>Tools By Fahz</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{margin:0;background:#020617;color:white;display:flex;height:100vh;overflow:hidden}
-.sidebar{
-  width:230px;background:rgba(15,23,42,.95);backdrop-filter:blur(10px);
-  padding:16px;display:flex;flex-direction:column;gap:8px;
-  box-shadow:0 0 20px rgba(0,0,0,.6)
+body{
+  margin:0;background:#020617;color:white;
+  height:100vh;overflow:hidden;
 }
-.sidebar h2{text-align:center;margin-bottom:10px;font-size:18px}
+
+/* HEADER */
+.header{
+  height:55px;
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  background:rgba(15,23,42,.95);
+  backdrop-filter:blur(10px);
+  box-shadow:0 2px 10px rgba(0,0,0,.6);
+}
+.menu-btn{
+  font-size:22px;
+  cursor:pointer;
+  margin-right:12px;
+}
+.header h1{
+  font-size:16px;
+  margin:0;
+}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  height:calc(100vh - 55px);
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:230px;
+  background:rgba(15,23,42,.97);
+  backdrop-filter:blur(10px);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  box-shadow:0 0 20px rgba(0,0,0,.6);
+  transition:.3s ease;
+}
+
+/* MOBILE SIDEBAR */
+.sidebar.mobile{
+  position:fixed;
+  top:55px;
+  left:-260px;
+  height:calc(100vh - 55px);
+  z-index:1000;
+}
+.sidebar.mobile.show{
+  left:0;
+}
+
+/* OVERLAY */
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:900;
+}
+.overlay.show{display:block}
+
+/* TABS */
 .tab{
   padding:10px;border-radius:8px;cursor:pointer;
   background:rgba(255,255,255,.05);transition:.2s
 }
 .tab:hover{background:rgba(255,255,255,.15)}
-.tab.active{background:linear-gradient(135deg,#22c55e,#16a34a);color:black;font-weight:bold}
-.main{flex:1;display:flex;align-items:center;justify-content:center}
+.tab.active{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:black;font-weight:bold
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
 .card{
-  width:100%;max-width:520px;
-  background:rgba(255,255,255,.05);backdrop-filter:blur(12px);
-  border-radius:16px;padding:24px;
+  width:100%;
+  max-width:520px;
+  background:rgba(255,255,255,.05);
+  backdrop-filter:blur(12px);
+  border-radius:16px;
+  padding:20px;
   box-shadow:0 0 30px rgba(0,0,0,.6)
 }
+
+/* FORM */
 input,textarea{
-  width:100%;padding:10px;border-radius:8px;border:none;
-  background:rgba(255,255,255,.1);color:white;margin-bottom:10px
+  width:100%;
+  padding:12px;border-radius:10px;border:none;
+  background:rgba(255,255,255,.1);
+  color:white;margin-bottom:10px;
+  font-size:14px;
 }
 button{
-  width:100%;padding:12px;border-radius:10px;border:none;
+  width:100%;padding:12px;border-radius:12px;border:none;
   background:linear-gradient(135deg,#22c55e,#16a34a);
-  font-weight:bold;cursor:pointer
+  font-weight:bold;cursor:pointer;
+  font-size:14px;
 }
 .result{
   margin-top:10px;font-size:12px;
-  background:rgba(0,0,0,.4);padding:10px;border-radius:8px;
-  max-height:200px;overflow:auto;white-space:pre-wrap
+  background:rgba(0,0,0,.4);
+  padding:12px;border-radius:10px;
+  max-height:240px;overflow:auto;white-space:pre-wrap
+}
+
+/* DESKTOP */
+@media(min-width:900px){
+  .menu-btn{display:none}
+  .sidebar{position:relative}
+  .sidebar.mobile{display:none}
+  .overlay{display:none}
 }
 </style>
 </head>
+
 <body>
 
-<div class="sidebar">
-  <h2>Tools By Fahz</h2>
-  <div class="tab active" onclick="show('ngl')">Spam NGL</div>
-  <div class="tab" onclick="show('lyrics')">Lyrics Lagu</div>
-  <div class="tab" onclick="show('hd')">HD Image</div>
-  <div class="tab" onclick="show('brat')">Brat Maker</div>
-  <div class="tab" onclick="show('searchsp')">Search Spotify</div>
-  <div class="tab" onclick="show('dlsp')">Spotify Downloader</div>
+<div class="header">
+  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+  <h1>Tools By Fahz</h1>
 </div>
 
-<div class="main">
-  <div class="card" id="content"></div>
+<div class="container">
+
+  <div class="sidebar mobile" id="sidebar">
+    <div class="tab active" onclick="show('ngl')">Spam NGL</div>
+    <div class="tab" onclick="show('lyrics')">Lyrics Lagu</div>
+    <div class="tab" onclick="show('hd')">HD Image</div>
+    <div class="tab" onclick="show('brat')">Brat Maker</div>
+    <div class="tab" onclick="show('searchsp')">Search Spotify</div>
+    <div class="tab" onclick="show('dlsp')">Spotify Downloader</div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <div class="main">
+    <div class="card" id="content"></div>
+  </div>
+
 </div>
 
 <script>
 const content = document.getElementById("content");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+function toggleSidebar(){
+  sidebar.classList.toggle("show");
+  overlay.classList.toggle("show");
+}
+
+function closeSidebar(){
+  sidebar.classList.remove("show");
+  overlay.classList.remove("show");
+}
+
+function setActive(el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+}
 
 function show(tab){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  event.target.classList.add('active');
+  setActive(event.target);
+  closeSidebar();
 
   if(tab==="ngl"){
     content.innerHTML=`<h3>Spam NGL</h3>
@@ -111,47 +229,47 @@ function show(tab){
   }
 }
 
+/* API CALLS */
 async function ngl(){
-  const u=username.value,t=text.value,a=amount.value;
-  const r=document.getElementById("res");
+  const r=res;
   r.innerText="Loading...";
-  const res=await fetch(`/api/ngl?username=${encodeURIComponent(u)}&text=${encodeURIComponent(t)}&amount=${encodeURIComponent(a)}`);
-  r.innerText=await res.text();
+  const resx=await fetch(`/api/ngl?username=${encodeURIComponent(username.value)}&text=${encodeURIComponent(text.value)}&amount=${encodeURIComponent(amount.value)}`);
+  r.innerText=await resx.text();
 }
 
 async function lyrics(){
-  const r=document.getElementById("res");
+  const r=res;
   r.innerText="Loading...";
-  const res=await fetch(`/api/lyrics?q=${encodeURIComponent(q.value)}`);
-  r.innerText=await res.text();
+  const resx=await fetch(`/api/lyrics?q=${encodeURIComponent(q.value)}`);
+  r.innerText=await resx.text();
 }
 
 async function hd(){
-  const r=document.getElementById("res");
+  const r=res;
   r.innerText="Loading...";
-  const res=await fetch(`/api/hd?img=${encodeURIComponent(img.value)}`);
-  r.innerText=await res.text();
+  const resx=await fetch(`/api/hd?img=${encodeURIComponent(img.value)}`);
+  r.innerText=await resx.text();
 }
 
 async function brat(){
-  const r=document.getElementById("res");
+  const r=res;
   r.innerText="Loading...";
-  const res=await fetch(`/api/brat?text=${encodeURIComponent(textb.value)}&color=${encodeURIComponent(color.value)}`);
-  r.innerText=await res.text();
+  const resx=await fetch(`/api/brat?text=${encodeURIComponent(textb.value)}&color=${encodeURIComponent(color.value)}`);
+  r.innerText=await resx.text();
 }
 
 async function searchsp(){
-  const r=document.getElementById("res");
+  const r=res;
   r.innerText="Loading...";
-  const res=await fetch(`/api/searchsp?q=${encodeURIComponent(qs.value)}`);
-  r.innerText=await res.text();
+  const resx=await fetch(`/api/searchsp?q=${encodeURIComponent(qs.value)}`);
+  r.innerText=await resx.text();
 }
 
 async function dlsp(){
-  const r=document.getElementById("res");
+  const r=res;
   r.innerText="Loading...";
-  const res=await fetch(`/api/dlsp?url=${encodeURIComponent(url.value)}`);
-  r.innerText=await res.text();
+  const resx=await fetch(`/api/dlsp?url=${encodeURIComponent(url.value)}`);
+  r.innerText=await resx.text();
 }
 
 show('ngl');
