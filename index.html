@@ -2,278 +2,169 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Tools By Fahz</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Whoops.. Aplikasi Down</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+*{box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+
 body{
-  margin:0;background:#020617;color:white;
-  height:100vh;overflow:hidden;
-}
-
-/* HEADER */
-.header{
-  height:55px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-  background:rgba(15,23,42,.95);
-  backdrop-filter:blur(10px);
-  box-shadow:0 2px 10px rgba(0,0,0,.6);
-}
-.menu-btn{
-  font-size:22px;
-  cursor:pointer;
-  margin-right:12px;
-}
-.header h1{
-  font-size:16px;
   margin:0;
-}
-
-/* LAYOUT */
-.container{
-  display:flex;
-  height:calc(100vh - 55px);
-}
-
-/* SIDEBAR */
-.sidebar{
-  width:230px;
-  background:rgba(15,23,42,.97);
-  backdrop-filter:blur(10px);
-  padding:16px;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  box-shadow:0 0 20px rgba(0,0,0,.6);
-  transition:.3s ease;
-}
-
-/* MOBILE SIDEBAR */
-.sidebar.mobile{
-  position:fixed;
-  top:55px;
-  left:-260px;
-  height:calc(100vh - 55px);
-  z-index:1000;
-}
-.sidebar.mobile.show{
-  left:0;
-}
-
-/* OVERLAY */
-.overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.6);
-  z-index:900;
-}
-.overlay.show{display:block}
-
-/* TABS */
-.tab{
-  padding:10px;border-radius:8px;cursor:pointer;
-  background:rgba(255,255,255,.05);transition:.2s
-}
-.tab:hover{background:rgba(255,255,255,.15)}
-.tab.active{
-  background:linear-gradient(135deg,#22c55e,#16a34a);
-  color:black;font-weight:bold
-}
-
-/* MAIN */
-.main{
-  flex:1;
+  min-height:100vh;
+  background:linear-gradient(135deg,#020617,#0f172a,#020617);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:16px;
+  color:white;
+  overflow:hidden;
 }
+
+/* BACKGROUND ANIMATION */
+.bg-glow{
+  position:absolute;
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle, rgba(34,197,94,0.15), transparent 70%);
+  filter:blur(80px);
+  animation:float 12s infinite alternate ease-in-out;
+}
+.bg-glow.two{
+  background:radial-gradient(circle, rgba(56,189,248,0.15), transparent 70%);
+  animation-delay:3s;
+}
+
+@keyframes float{
+  from{transform:translate(-50px,-50px)}
+  to{transform:translate(50px,50px)}
+}
+
+/* CARD */
 .card{
+  position:relative;
+  z-index:2;
   width:100%;
   max-width:520px;
-  background:rgba(255,255,255,.05);
-  backdrop-filter:blur(12px);
-  border-radius:16px;
-  padding:20px;
-  box-shadow:0 0 30px rgba(0,0,0,.6)
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(14px);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:0 0 40px rgba(0,0,0,.7);
+  border:1px solid rgba(255,255,255,.1);
+  text-align:center;
 }
 
-/* FORM */
-input,textarea{
-  width:100%;
-  padding:12px;border-radius:10px;border:none;
-  background:rgba(255,255,255,.1);
-  color:white;margin-bottom:10px;
-  font-size:14px;
+/* TITLE */
+h1{
+  margin:0;
+  font-size:26px;
+  letter-spacing:.5px;
 }
+.sub{
+  margin-top:6px;
+  font-size:13px;
+  opacity:.6;
+}
+
+/* HEART + ICON */
+.icon{
+  font-size:46px;
+  margin:16px 0 8px 0;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
+}
+
+/* MESSAGE BOX */
+.message{
+  margin-top:18px;
+  font-size:14px;
+  line-height:1.7;
+  opacity:.9;
+}
+
+/* QUOTES */
+.quotes{
+  margin-top:16px;
+  padding:14px;
+  background:rgba(0,0,0,.35);
+  border-radius:12px;
+  font-size:13px;
+  text-align:left;
+}
+.quote{
+  margin-bottom:8px;
+  opacity:.85;
+}
+.quote:last-child{margin-bottom:0}
+
+/* BUTTON */
 button{
-  width:100%;padding:12px;border-radius:12px;border:none;
+  margin-top:18px;
+  padding:12px 20px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
   background:linear-gradient(135deg,#22c55e,#16a34a);
-  font-weight:bold;cursor:pointer;
-  font-size:14px;
+  color:black;
+  transition:.2s;
 }
-.result{
-  margin-top:10px;font-size:12px;
-  background:rgba(0,0,0,.4);
-  padding:12px;border-radius:10px;
-  max-height:240px;overflow:auto;white-space:pre-wrap
+button:hover{
+  transform:translateY(-2px);
+  filter:brightness(1.1);
 }
 
-/* DESKTOP */
-@media(min-width:900px){
-  .menu-btn{display:none}
-  .sidebar{position:relative}
-  .sidebar.mobile{display:none}
-  .overlay{display:none}
+/* FOOTER */
+.footer{
+  margin-top:14px;
+  font-size:11px;
+  opacity:.4;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .card{margin:16px}
+  h1{font-size:22px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <div class="menu-btn" onclick="toggleSidebar()">☰</div>
-  <h1>Tools By Fahz</h1>
-</div>
+<div class="bg-glow"></div>
+<div class="bg-glow two"></div>
 
-<div class="container">
+<div class="card">
+  <div class="icon">💔⚙️</div>
+  <h1>Whoops.. Aplikasi Down</h1>
+  <div class="sub">Fahz Tools sedang tidak bisa diakses</div>
 
-  <div class="sidebar mobile" id="sidebar">
-    <div class="tab active" onclick="show('ngl')">Spam NGL</div>
-    <div class="tab" onclick="show('lyrics')">Lyrics Lagu</div>
-    <div class="tab" onclick="show('hd')">HD Image</div>
-    <div class="tab" onclick="show('brat')">Brat Maker (Rework)</div>
-    <div class="tab" onclick="show('searchsp')">Search Spotify</div>
-    <div class="tab" onclick="show('dlsp')">Spotify Downloader</div>
+  <div class="message">
+    Kadang sistem juga seperti perasaan manusia...  
+    ada saatnya lelah, ada saatnya butuh jeda.  
+    Server kami sedang <b>istirahat sejenak</b>,  
+    seperti hati yang pernah patah tapi sedang belajar sembuh ❤️‍🩹
   </div>
 
-  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-
-  <div class="main">
-    <div class="card" id="content"></div>
+  <div class="quotes">
+    <div class="quote">“Bukan aplikasinya yang rusak, tapi koneksi antara sistem dan semesta yang sedang renggang.”</div>
+    <div class="quote">“Kadang error bukan berarti akhir, tapi tanda bahwa sesuatu sedang diperbaiki.”</div>
+    <div class="quote">“Seperti cinta, sistem juga butuh waktu untuk pulih.”</div>
+    <div class="quote">“Kami tidak down, kami hanya sedang memperbaiki diri.”</div>
+    <div class="quote">“Jika cinta butuh kepercayaan, sistem juga butuh waktu.”</div>
   </div>
 
+  <button onclick="location.reload()">Coba Lagi</button>
+
+  <div class="footer">
+    Fahz Tools • Temporary Maintenance Mode  
+    <br>
+    Made with logic, code, and a little bit of feeling 🤍
+  </div>
 </div>
-
-<script>
-const content = document.getElementById("content");
-const sidebar = document.getElementById("sidebar");
-const overlay = document.getElementById("overlay");
-
-function toggleSidebar(){
-  sidebar.classList.toggle("show");
-  overlay.classList.toggle("show");
-}
-
-function closeSidebar(){
-  sidebar.classList.remove("show");
-  overlay.classList.remove("show");
-}
-
-function setActive(el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-}
-
-function show(tab){
-  setActive(event.target);
-  closeSidebar();
-
-  if(tab==="ngl"){
-    content.innerHTML=`<h3>Spam NGL</h3>
-    <input id="username" placeholder="Username NGL">
-    <textarea id="text" placeholder="Pesan"></textarea>
-    <input id="amount" placeholder="Jumlah">
-    <button onclick="ngl()">Kirim</button>
-    <div class="result" id="res"></div>`;
-  }
-
-  if(tab==="lyrics"){
-    content.innerHTML=`<h3>Lyrics Lagu</h3>
-    <input id="q" placeholder="Hindia - Kids">
-    <button onclick="lyrics()">Cari</button>
-    <div class="result" id="res"></div>`;
-  }
-
-  if(tab==="hd"){
-    content.innerHTML=`<h3>HD Image</h3>
-    <input id="img" placeholder="Link gambar">
-    <button onclick="hd()">Proses</button>
-    <div class="result" id="res"></div>`;
-  }
-
-  if(tab==="brat"){
-    content.innerHTML=`<h3>Brat Maker</h3>
-    <input id="textb" placeholder="Text">
-    <input id="color" placeholder="Color">
-    <button onclick="brat()">Buat</button>
-    <div class="result" id="res"></div>`;
-  }
-
-  if(tab==="searchsp"){
-    content.innerHTML=`<h3>Search Spotify</h3>
-    <input id="qs" placeholder="Judul lagu">
-    <button onclick="searchsp()">Cari</button>
-    <div class="result" id="res"></div>`;
-  }
-
-  if(tab==="dlsp"){
-    content.innerHTML=`<h3>Spotify Downloader</h3>
-    <input id="url" placeholder="Link Spotify">
-    <button onclick="dlsp()">Download</button>
-    <div class="result" id="res"></div>`;
-  }
-}
-
-/* API CALLS */
-async function ngl(){
-  const r=res;
-  r.innerText="Loading...";
-  const resx=await fetch(`/api/ngl?username=${encodeURIComponent(username.value)}&text=${encodeURIComponent(text.value)}&amount=${encodeURIComponent(amount.value)}`);
-  r.innerText=await resx.text();
-}
-
-async function lyrics(){
-  const r=res;
-  r.innerText="Loading...";
-  const resx=await fetch(`/api/lyrics?q=${encodeURIComponent(q.value)}`);
-  r.innerText=await resx.text();
-}
-
-async function hd(){
-  const r=res;
-  r.innerText="Loading...";
-  const resx=await fetch(`/api/hd?img=${encodeURIComponent(img.value)}`);
-  r.innerText=await resx.text();
-}
-
-async function brat(){
-  const r=res;
-  r.innerText="Loading...";
-  const resx=await fetch(`/api/brat?text=${encodeURIComponent(textb.value)}&color=${encodeURIComponent(color.value)}`);
-  r.innerText=await resx.text();
-}
-
-async function searchsp(){
-  const r=res;
-  r.innerText="Loading...";
-  const resx=await fetch(`/api/searchsp?q=${encodeURIComponent(qs.value)}`);
-  r.innerText=await resx.text();
-}
-
-async function dlsp(){
-  const r=res;
-  r.innerText="Loading...";
-  const resx=await fetch(`/api/dlsp?url=${encodeURIComponent(url.value)}`);
-  r.innerText=await resx.text();
-}
-
-show('ngl');
-</script>
 
 </body>
 </html>
